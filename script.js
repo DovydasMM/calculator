@@ -3,6 +3,7 @@ const answerDisplay = document.querySelector('.answer')
 const numbers = document.querySelector('#numbers')
 const clear = document.querySelector('.clear')
 const operators = document.querySelector('#operators')
+const actionDisplay = document.querySelector('.toprow')
 let firstInput;
 let secondInput;
 let chosenOperation;
@@ -11,6 +12,12 @@ let clickedOperators;
 let answer;
 let nonEqual;
 let operationArray = [];
+function clearClick(){
+    
+}
+
+
+
 
 
 function add(num1,num2){  // function for addition
@@ -30,14 +37,14 @@ function divide(num1,num2){  // function for division
 }
 
 function operate(operator,num1,num2){ // function for math operation 
-    if (operator == 'plus'){
+    if (operator == '+'){
         return add(num1,num2);
     }
-    if (operator == 'minus'){
+    if (operator == '-'){
         return subtract(num1,num2);
-    }    if (operator == 'times'){
+    }    if (operator == '×'){
         return multiply(num1,num2);
-    }    if (operator == 'divides'){
+    }    if (operator == '÷'){
         return divide(num1,num2);
     }
 }
@@ -108,38 +115,51 @@ function operate(operator,num1,num2){ // function for math operation
 function clearClick() { // created button for clear function
     clear.addEventListener('click', function (e) {
         answerDisplay.textContent = '0';
+        actionDisplay.textContent= '0';
         answerArray = [];
         operationArray=[];
+
         
     });
 };
 
 function operatorClick() { // created a function for operator input logc
-    let answerLength = answerArray.length;
     operators.addEventListener('click', function (e) {
         clickedOperators  = e.target.getAttribute('class');
-        if (!clickedOperators == false && clickedOperators!='equal'){
+        if (!clickedOperators == false && clickedOperators!='='){
+            if (actionDisplay.textContent=='0'){
+                actionDisplay.textContent=''
+            }
             answerArray.push(Number(answerDisplay.textContent));
-            answerDisplay.textContent = ""
+            actionDisplay.textContent += answerDisplay.textContent+clickedOperators
+            answerDisplay.textContent = '0';
             operationArray.push(clickedOperators);
             if (answerArray.length > 1){
                 nonEqual = operationArray[operationArray.length-2];
                 answer = operate(nonEqual,answerArray[answerArray.length-2],answerArray[answerArray.length-1]);
-                answerDisplay.textContent = answer;
+                answerArray.push(answer);
+                answerDisplay.textContent = "0";
+                console.log(answerArray)
                 
             }
         }
-        if (clickedOperators=='equal'){
+        if (clickedOperators=='='){
             answerArray.push(Number(answerDisplay.textContent));
             nonEqual = operationArray[operationArray.length-1]
             answer = operate(nonEqual,answerArray[answerArray.length-2],answerArray[answerArray.length-1]);
+            actionDisplay.textContent = actionDisplay.textContent+answerDisplay.textContent;
+            answerArray.push(answer)
             answerDisplay.textContent = answer;
+            console.log(answerArray)
         }
 
     });
 };
 
 
+function clearDisplay(){
+    
+}
 
 numberClick();
 clearClick();
