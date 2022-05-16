@@ -3,37 +3,46 @@ const answerDisplay = document.querySelector('.answer')
 const numbers = document.querySelector('#numbers')
 const clear = document.querySelector('.clear')
 const operators = document.querySelector('#operators')
-let firstInput
-let secondInput
-let chosenOperation
-//answerDisplay.style.backgroundColor = 
+let firstInput;
+let secondInput;
+let chosenOperation;
+let answerArray =[];
+let clickedOperators;
+let answer;
+let nonEqual;
+let operationArray = [];
 
 
 function add(num1,num2){  // function for addition
-    return num1 + num2;
+    return Number(num1) + Number(num2);
 }
 
 function subtract(num1,num2){  // function for subtraction
-    return num1 - num2;
+    return Number(num1) - Number(num2);
 }
 
 function multiply(num1,num2){  // function for multiplication
-    return num1 * num2;
+    return Number(num1) * Number(num2);
 }
 
 function divide(num1,num2){  // function for division
-    return num1 / num2;
+    return Number(num1) / Number(num2);
 }
 
 function operate(operator,num1,num2){ // function for math operation 
-    
-    
-    
-    
-    return operator(num1,num2);       // (calls all above listed fucntion)
+    if (operator == 'plus'){
+        return add(num1,num2);
+    }
+    if (operator == 'minus'){
+        return subtract(num1,num2);
+    }    if (operator == 'times'){
+        return multiply(num1,num2);
+    }    if (operator == 'divides'){
+        return divide(num1,num2);
+    }
 }
 
-function numberClick() { // created function for pressed number input
+ function numberClick() { // created function for pressed number input
     numbers.addEventListener('click', function (e) {
         let clickedNumber  = e.target.getAttribute('class');
         if (clickedNumber == 'zero' && answerDisplay.textContent != '0'){
@@ -99,29 +108,37 @@ function numberClick() { // created function for pressed number input
 function clearClick() { // created button for clear function
     clear.addEventListener('click', function (e) {
         answerDisplay.textContent = '0';
+        answerArray = [];
+        operationArray=[];
+        
     });
 };
 
-
-function operatorClick() { // created a function for operator input
+function operatorClick() { // created a function for operator input logc
+    let answerLength = answerArray.length;
     operators.addEventListener('click', function (e) {
-        let clickedOperators  = e.target.getAttribute('class');
-        if (clickedOperators == 'plus'){
-            firstInput = Number(answerDisplay.textContent)
-            answerDisplay.textContent = '0';
-            chosenOperation = clickedOperators;
+        clickedOperators  = e.target.getAttribute('class');
+        if (!clickedOperators == false && clickedOperators!='equal'){
+            answerArray.push(Number(answerDisplay.textContent));
+            answerDisplay.textContent = ""
+            operationArray.push(clickedOperators);
+            if (answerArray.length > 1){
+                nonEqual = operationArray[operationArray.length-2];
+                answer = operate(nonEqual,answerArray[answerArray.length-2],answerArray[answerArray.length-1]);
+                answerDisplay.textContent = answer;
+                
+            }
         }
-        if (clickedOperators == 'equal'){
-            secondInput = Number(answerDisplay.textContent)
-            answerDisplay.textContent = firstInput+secondInput;
-            console.log(chosenOperation);
+        if (clickedOperators=='equal'){
+            answerArray.push(Number(answerDisplay.textContent));
+            nonEqual = operationArray[operationArray.length-1]
+            answer = operate(nonEqual,answerArray[answerArray.length-2],answerArray[answerArray.length-1]);
+            answerDisplay.textContent = answer;
         }
 
-
-        
-        
     });
 };
+
 
 
 numberClick();
