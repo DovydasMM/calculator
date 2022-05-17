@@ -4,21 +4,12 @@ const numbers = document.querySelector('#numbers')
 const clear = document.querySelector('.clear')
 const operators = document.querySelector('#operators')
 const actionDisplay = document.querySelector('.toprow')
-let firstInput;
-let secondInput;
 let chosenOperation;
 let answerArray =[];
 let clickedOperators;
 let answer;
 let nonEqual;
 let operationArray = [];
-function clearClick(){
-    
-}
-
-
-
-
 
 function add(num1,num2){  // function for addition
     return Number(num1) + Number(num2);
