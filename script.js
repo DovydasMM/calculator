@@ -109,8 +109,8 @@ function operate(operator,num1,num2){ // function for math operation
 
 function clearClick() { // created button for clear function
     clear.addEventListener('click', function (e) {
-        answerDisplay.textContent = '0';
-        actionDisplay.textContent= '0';
+        answerDisplay.textContent = '';
+        actionDisplay.textContent= '';
         answerArray = [];
         operationArray=[];
 
@@ -127,7 +127,7 @@ function operatorClick() { // created a function for operator input logc
             }
             answerArray.push(Number(answerDisplay.textContent));
             actionDisplay.textContent += answerDisplay.textContent+clickedOperators
-            answerDisplay.textContent = '0';
+            answerDisplay.textContent = '';
             operationArray.push(clickedOperators);
             if (answerArray.length > 1){
                 nonEqual = operationArray[operationArray.length-2];
@@ -146,7 +146,7 @@ function operatorClick() { // created a function for operator input logc
             actionDisplay.textContent = actionDisplay.textContent+answerDisplay.textContent;
             answerArray.push(answer)
             answerDisplay.textContent = answer;
-            actionDisplay.textContent= '0';
+            actionDisplay.textContent= '';
             answerArray = [];
             
         }
