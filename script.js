@@ -52,6 +52,10 @@ function operate(operator,num1,num2){ // function for math operation
  function numberClick() { // created function for pressed number input
     numbers.addEventListener('click', function (e) {
         let clickedNumber  = e.target.getAttribute('class');
+       // if (answerDisplay.textContent =)
+        
+        
+        
         if (clickedNumber == 'zero' && answerDisplay.textContent != '0'){
             answerDisplay.textContent = answerDisplay.textContent +0;
         }
@@ -138,8 +142,9 @@ function operatorClick() { // created a function for operator input logc
                 nonEqual = operationArray[operationArray.length-2];
                 answer = operate(nonEqual,answerArray[answerArray.length-2],answerArray[answerArray.length-1]);
                 answerArray.push(answer);
-                answerDisplay.textContent = "0";
+                actionDisplay.textContent = answer +clickedOperators
                 console.log(answerArray)
+                console.log(typeof actionDisplay.textContent)
                 
             }
         }
@@ -150,7 +155,9 @@ function operatorClick() { // created a function for operator input logc
             actionDisplay.textContent = actionDisplay.textContent+answerDisplay.textContent;
             answerArray.push(answer)
             answerDisplay.textContent = answer;
-            console.log(answerArray)
+            actionDisplay.textContent= '0';
+            answerArray = [];
+            
         }
 
     });
